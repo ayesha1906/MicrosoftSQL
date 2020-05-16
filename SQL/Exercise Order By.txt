@@ -1,0 +1,34 @@
+select FirstName,
+       LastName ,
+	   JobTitle
+from HumanResources.vEmployeeDepartment
+order by FirstName
+
+select FirstName,
+       LastName ,
+	   JobTitle
+from HumanResources.vEmployeeDepartment
+order  by FirstName , LastName desc
+
+select FirstName ,
+       LastName ,
+	   CountryRegionName
+from Sales.vIndividualCustomer
+order by 3
+
+select FirstName ,
+       LastName , 
+	   CountryRegionName
+from Sales.vIndividualCustomer
+where CountryRegionName In ('United States','France')
+order by CountryRegionName
+
+select Name,
+       AnnualSales,
+	   YearOpened,
+       SquareFeet as "Store Size",
+	   NumberEmployees as "Total Employees"
+from Sales.vStoreWithDemographics
+where AnnualSales > 1000000 
+      and NumberEmployees >= 45
+order by [Store Size] desc , [Total Employees] desc

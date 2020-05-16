@@ -1,0 +1,57 @@
+--ORDER BY ----
+
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY FirstName 
+
+--will order it by 2nd column i.e Lastname--
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY 2
+
+--will order it by lastname using it alias--
+SELECT FirstName , LastName AS [Customer Last Name]
+FROM Sales.vIndividualCustomer
+ORDER BY [Customer Last Name] 
+
+SELECT FirstName , LastName AS [Customer Last Name]
+FROM Sales.vIndividualCustomer
+ORDER BY [Customer Last Name] DESC
+
+----------------------------
+--NOTE :
+Way of writing a query is in the order :
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+
+The order by clause can execute stmnts with the column alias name .
+Others cannot do it with alias name because the order in which a query is executed by sql is:
+Way of writing a query is in the order :
+
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+
+Since the select stmnt executes before order by , sql knows the column alias name so order by can execute it with alias.
+whereas the other clauses like where executes before select so it does not recognise any alias hence it will give error. 
+-----------------------------------------------
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY 2 desc
+
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY LastName , FirstName desc
+
+select LastName, FirstName, SalesQuota
+from Sales.vSalesPerson
+where SalesQuota >= 250000
+order by SalesQuota  desc , LastName asc 
+

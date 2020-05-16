@@ -1,0 +1,85 @@
+select OrderYear, Count(*) as SalesCount
+from (
+      select Year(OrderDate) as OrderYear , SalesOrderID
+	  from Sales.SalesOrderHeader
+	  ) SalesDetails
+where OrderYear = '2006'
+group by OrderYear
+
+--WITH CTE THE ABOVE QUERY CAN BE MODIFIED AS :
+
+WITH SalesDetails
+AS (
+    select Year(OrderDate) as OrderYear , SalesOrderID
+	  from Sales.SalesOrderHeader
+	)
+select OrderYear, Count(*) as SalesCount
+from SalesDetails
+where OrderYear = '2006'
+group by OrderYear
+
+
+WITH HR_Employee
+AS (
+    select BusinessEntityID, NationalIDNumber , YEAR(BirthDate) as BirthYear,
+    YEAR(HireDate) as HireYear
+    from HumanResources.Employee
+   )
+select *
+from HR_Employee
+where HireYear >=2004
+
+--CTE Main Advantage over derived tables  can be understood by the following :
+
+--through derived tables :
+select
+      SalesCurrentYear.SalesYear,
+	  SalesCurrentYear.TotalSales as AnnualSales,
+	  SalesPriorYear.TotalSales as PriorYearSales
+from (
+      select Year(Orderdate) as SalesYear, Sum(TotalDue) as TotalSales
+	  from Sales.SalesOrderHeader
+	  group by YEAR(OrderDate)
+	  ) as SalesCurrentYear
+left outer join (
+      select Year(Orderdate) as SalesYear, Sum(TotalDue) as TotalSales
+	  from Sales.SalesOrderHeader
+	  group by YEAR(OrderDate)
+	  ) as SalesPriorYear
+on SalesCurrentYear.SalesYear -1 = SalesPriorYear.SalesYear
+order by 1 
+
+--now through cte: 
+WITH SalesByYear
+as (
+      select Year(Orderdate) as SalesYear, Sum(TotalDue) as TotalSales
+	  from Sales.SalesOrderHeader
+	  group by YEAR(OrderDate)
+    )
+select
+      SalesCurrentYear.SalesYear,
+	  SalesCurrentYear.TotalSales as AnnualSales,
+	  SalesPriorYear.TotalSales as PriorYearSales
+from SalesByYear SalesCurrentYear
+left outer join SalesByYear as SalesPriorYear
+on SalesCurrentYear.SalesYear -1 = SalesPriorYear.SalesYear
+order by 1
+
+--referencing one Cte into another :
+
+WITH S1
+as (
+    select YEAR(OrderDate) as SalesYear, SalesOrderID, TotalDue
+	From Sales.SalesOrderHeader
+	),
+S2 as
+    (
+	select SalesYear , COUNT(SalesOrderID) as SalesCount,
+	Sum(TotalDue) as AnnualSales
+	from S1
+	group by SalesYear
+	)
+select SalesYear , SalesCount, AnnualSales
+from S2
+where SalesCount > 5000
+order by 1

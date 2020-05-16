@@ -1,0 +1,33 @@
+----Having clause ---
+
+select TerritoryID , sum(TotalDue) as [Total due]
+from Sales.SalesOrderHeader
+where OrderDate between '1/1/2006' and '12/31/2006' 
+group by TerritoryID
+having SUM(TotalDue) > 4000000
+order by 1
+
+select PS.Name, COUNT(*) [Product Count]
+from Production.Product P
+inner join Production.ProductSubcategory PS
+on PS.ProductSubcategoryID = P.ProductSubcategoryID
+group by PS.Name
+having COUNT(*) >15
+order by 1
+
+select Department as "Dept Name",
+       Count(*) as "Employee Count"
+from HumanResources.vEmployeeDepartment
+group by Department
+having Count(*) IN (6,10)
+
+select SalesPersonID,
+       Sum(TotalDue) as [Total Due],
+	   Count(*) as [Total Sales Count]
+from Sales.SalesOrderHeader
+where OrderDate between '1/1/2006' and '12/31/2006'
+      and SalesPersonID is not null
+group by SalesPersonID
+having Sum(TotalDue) > 2000000 
+       and COUNT(*) >=75
+order by [Total Due] desc

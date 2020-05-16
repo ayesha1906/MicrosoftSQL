@@ -1,0 +1,41 @@
+--Group By--
+
+select SalesPersonID, Sum (TotalDue) AS TotalDueSum
+from Sales.SalesOrderHeader
+GROUP BY SalesPersonID
+
+select TerritoryID, Sum (TotalDue) AS TotalDueSum
+from Sales.SalesOrderHeader
+GROUP BY TerritoryID
+
+select * from Sales.SalesOrderHeader
+
+select ProductID , Sum (Quantity) as "Total in stock"
+from Production.ProductInventory
+group by ProductID
+
+select ProductID,
+       SUM(Quantity) as "Total stock",
+	   count(*) as "Total Locations"
+from Production.ProductInventory
+group by ProductID
+
+select TerritoryID, SalesPersonID , Sum(TotalDue) as [Total Sales]
+from Sales.SalesOrderHeader
+where OrderDate between '1/1/2006' and '12/31/2006'
+group by TerritoryID , SalesPersonID
+order by 1, 2
+
+select ST.Name as [Territory name], 
+       P.FirstName + ' ' + P.LastName AS [Sales Person Name],
+	   Sum(TotalDue) as [Total Sales]
+from Sales.SalesOrderHeader SOH
+inner join Sales.SalesPerson SP
+on SP.BusinessEntityID = SOH.SalesPersonID
+inner join Person.Person P
+on P.BusinessEntityID = SP.BusinessEntityID
+inner join Sales.SalesTerritory ST
+on ST.TerritoryID = SOH.TerritoryID
+where OrderDate between '1/1/2006' and '12/31/2006'
+group by ST.Name,P.FirstName + ' ' + P.LastName
+order by 1, 2

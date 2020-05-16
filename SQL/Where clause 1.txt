@@ -1,0 +1,61 @@
+select *
+from Production.Product
+where ListPrice >= 10
+
+select *
+from Production.Product
+where ListPrice <= 10
+
+select *
+from Production.Product
+where ListPrice = 10
+
+select *
+from Production.Product
+where ListPrice <> 10
+
+select *
+from HumanResources.vEmployee
+where FirstName = 'Chris'
+
+select *
+from HumanResources.vEmployee
+where FirstName <> 'Chris'
+
+Select *
+from HumanResources.Employee
+where BirthDate >= '1/1/1980'
+
+-----AND OR---------
+
+select *
+from HumanResources.Employee
+where BirthDate >= '1/1/1980' AND Gender = 'F'
+
+select *
+from HumanResources.Employee
+where BirthDate >= '1/1/1980' AND BirthDate <= '1/1/1989'
+
+select *
+from HumanResources.Employee
+where MaritalStatus='S' OR Gender='M'
+
+Select *
+from HumanResources.Employee
+where MaritalStatus ='S' And (Gender='M' or OrganizationLevel=4)
+
+Select *
+from HumanResources.Employee
+where (MaritalStatus ='S' And Gender='M') or OrganizationLevel=4
+
+select *
+from HumanResources.vEmployeeDepartment
+where Department= 'Research and development' or (StartDate < '1/1/2005' 
+and Department = 'Executive')
+
+select *
+from Sales.vStoreWithDemographics
+where (AnnualSales > 1000000 and BusinessType = 'OS') or
+       (
+	   YearOpened < 1990 and SquareFeet > 40000 and NumberEmployees >10
+	   ) 

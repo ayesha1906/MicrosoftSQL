@@ -1,0 +1,22 @@
+select PersonType, Count(*) AS [PersonCount]
+from Person.Person
+group by PersonType
+
+select Color , COUNT(*) As [No of Product]
+from Production.Product
+where Color IN('Red' ,'Black')
+group by Color
+
+select TerritoryID, COUNT(*) as "No of sales"
+from Sales.SalesOrderHeader 
+where OrderDate between '7/1/2005' and '12/31/2006'
+group by TerritoryID
+order by [No of sales] desc
+
+select ST.Name, COUNT(*) as "No of sales"
+from Sales.SalesOrderHeader OH
+left outer join Sales.SalesTerritory ST
+on OH.TerritoryID= ST.TerritoryID
+where OrderDate between '7/1/2005' and '12/31/2006'
+group by ST.Name
+order by [No of sales] desc

@@ -1,0 +1,19 @@
+select MONTH('6/12/2011')
+--or
+select DATEPART(MONTH, '6/12/2011')
+
+select YEAR('11/20/1992')
+--or
+select DATEPART(MONTH, '11/20/1992')
+
+select DATEADD(DD, -74, GETDATE())
+
+select GETDATE()
+--OR
+select SYSDATETIME()
+--OR
+SELECT GETUTCDATE()
+
+select DATEDIFF(DD, '4/17/1996','9/4/2001')
+
+select DATEDIFF(MM, '12/25/1993', DATEADD(DD, -2719, GETDATE()))

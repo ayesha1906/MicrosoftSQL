@@ -1,0 +1,13 @@
+select GETDATE()   --gives current time
+select SYSDATETIME()   --more digits of micro second
+
+select DATEDIFF(YEAR, '7/1/1927', '5/14/1929')    --gives date difference in years
+select DATEDIFF(MONTH, '7/1/1927', '5/14/1929') --gives date difference in months
+select DATEDIFF(MM, '7/1/1927', '5/14/1929')  --same as above
+select DATEDIFF(HH, '7/1/1927', '5/14/1929') --hour/ HOUR
+select DATEDIFF(HH, '6/3/2008 17:14:00' , '6/5/2008 12:15:00' )
+
+select DATEADD(DAY,30, '4/7/2011')  --adds 30 days to the given date
+select DATEADD(DAY,-30, '4/7/2011') --subtracts 30dys
+select DATEADD(DAY, 30, GETDATE())
+select DATEADD(WK, -3, '1/26/2013') --subtracts 3 weeks

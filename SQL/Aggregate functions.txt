@@ -1,0 +1,40 @@
+select MAX(TotalDue)
+from Sales.SalesOrderHeader
+
+select MIN(TotalDue)
+from Sales.SalesOrderHeader
+
+select COUNT(*) 
+from Sales.SalesOrderHeader
+
+select COUNT(SalesOrderID) 
+from Sales.SalesOrderHeader --since Salesorderid is primary key it wont have null. so same no of rows as above
+
+select COUNT(SalesPersonID) 
+from Sales.SalesOrderHeader --here value will chnge bcoz it may have null
+
+select COUNT(*) 
+from Sales.SalesOrderHeader
+where SalesPersonID is not null
+
+select Count (FirstName)
+from Person.Person
+
+select Count ( Distinct FirstName)
+from Person.Person
+
+select AVG(TotalDue)
+from Sales.SalesOrderHeader
+
+select SUM(TotalDue)
+from Sales.SalesOrderHeader
+
+select SUM(TotalDue)
+from Sales.SalesOrderHeader
+where OrderDate between '1/1/2006' and '12/31/2006'
+
+select MAX(FirstName)
+from Person.Person
+
+select MIN(FirstName)
+from Person.Person

@@ -1,0 +1,12 @@
+SELECT coalesce(Title, 'No Title Listed') as Title
+FROM Person.Person
+
+SELECT coalesce(MiddleName, 'No Middle Name Listed') as MiddleName
+FROM Person.Person
+
+select coalesce(FirstName + ' '+ MiddleName + ' '+ LastName, FirstName + ' '+ LastName) as FullName
+from Person.Person
+
+select MakeFlag, FinishedGoodsFlag,
+       Nullif(MakeFlag,FinishedGoodsFlag)
+from Production.Product

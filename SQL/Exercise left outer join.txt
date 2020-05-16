@@ -1,0 +1,32 @@
+select 
+      SP.BusinessEntityID,
+	  SP.SalesYTD,
+	  T.Name as "TerritoryName"
+from Sales.SalesPerson SP
+left outer join Sales.SalesTerritory T
+on SP.TerritoryID = T.TerritoryID
+
+
+select 
+      SP.BusinessEntityID,
+	  SP.SalesYTD,
+	  T.Name as "TerritoryName",
+	  P.FirstName,
+	  P.LastName
+from Sales.SalesPerson SP
+left outer join Sales.SalesTerritory T
+on SP.TerritoryID = T.TerritoryID
+inner join Person.Person P
+on SP.BusinessEntityID = P.BusinessEntityID
+where T.Name IN ('Northeast' , 'Central')
+
+select P.Name as "ProductName",
+       P.ListPrice,
+	   S.Name as "ProductionSubCategoryName",
+	   C.Name as "ProductCategoryName"
+from Production.Product P
+left outer join Production.ProductSubcategory S
+on P.ProductSubcategoryID = S.ProductSubcategoryID
+left outer join Production.ProductCategory C
+on C.ProductCategoryID = S.ProductCategoryID
+order by ProductCategoryName desc, ProductionSubCategoryName asc

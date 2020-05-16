@@ -1,0 +1,15 @@
+select LEFT('This is a basic string',8)
+
+select right('This is another string',6)
+
+select Name, CHARINDEX('e', Name) as "Loaction of E"
+from Production.Product
+
+select Name, SUBSTRING(Name, 3,4) as "Substring"
+from Sales.SalesTerritory
+
+select LEFT(RIGHT('This is a slightly longer string', 8),4) AS RESULT
+
+SELECT FirstName, LEFT(FirstName, CHARINDEX('e', FirstName ))
+FROM Person.Person
+where LEFT(FirstName, CHARINDEX('e', FirstName )) <>''

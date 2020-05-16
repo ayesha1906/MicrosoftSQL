@@ -1,0 +1,64 @@
+--This query will give error since we did not specify a column name for year --
+ 
+select *
+from (
+     select P.BusinessEntityID, P.FirstName , P.LastName , Year (E.HireDate)  
+	 from HumanResources.Employee E
+	 inner join Person.Person P
+	 on P.BusinessEntityID = E.BusinessEntityID
+	 ) as EmployeeDetails
+
+--Solution to it :
+ select *
+from (
+     select P.BusinessEntityID, P.FirstName , P.LastName , Year (E.HireDate)  As HireYear
+	 from HumanResources.Employee E
+	 inner join Person.Person P
+	 on P.BusinessEntityID = E.BusinessEntityID
+	 ) as EmployeeDetails
+
+------------------------------------------------------------------------------------------------------------
+--order by clause is not allowed in table expressions unless the TOP opearator is used within the exp. 
+--So this query will give error
+
+select *
+from (
+     select P.BusinessEntityID, P.FirstName , P.LastName 
+	 from HumanResources.Employee E
+	 inner join Person.Person P
+	 on P.BusinessEntityID = E.BusinessEntityID
+	 order by 1
+	 ) as EmployeeDetails
+
+--Solution to it  :
+
+select *
+from (
+     select top 100 P.BusinessEntityID, P.FirstName , P.LastName 
+	 from HumanResources.Employee E
+	 inner join Person.Person P
+	 on P.BusinessEntityID = E.BusinessEntityID
+	 order by 1
+	 ) as EmployeeDetails
+
+--------------------------------------------------------------------------------------------------------------------
+
+select *
+from (
+     select *,  Year(BirthDate) as BirthYear, YEAR(HireDate) as HireYear
+	 from HumanResources.Employee
+	 ) as EmployeeDetails
+where BirthYear <=1968 and HireYear >= 2006
+
+-----------------------------------------------------------------------------------------------------------------------
+
+select 
+      OrderYear , SUM(TotalDue) as TotalSales
+from (
+     select *, YEAR(OrderDate) as OrderYear 
+	 from Sales.SalesOrderHeader
+	 ) as Sales
+where OrderYear IN (2005,2006)
+group by OrderYear
+
+

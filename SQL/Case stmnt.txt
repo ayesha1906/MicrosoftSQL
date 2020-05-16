@@ -1,0 +1,97 @@
+select ProductID , ListPrice,
+  CASE 
+      WHEN ListPrice > 100 THEN 'Expensive Product'
+	  ELSE 'Inexpensive Product'
+  END AS PriceClass
+from Production.Product
+where ListPrice <> 0
+
+--OR
+select ProductID , ListPrice,
+  CASE 
+      WHEN ListPrice > 100 THEN 'Expensive Product'
+	  WHEN ListPrice <= 100 THEN 'Inexpensive Product'
+  END AS PriceClass
+from Production.Product
+where ListPrice <> 0
+
+------------------------------------------
+Finding age and ranging them using case :
+
+WITH CustomerAge
+as (
+    select P.FirstName , P.LastName,
+	FLOOR(DATEDIFF(DAY, PD.BirthDate, GETDATE())/365.25) as Age
+	from Sales.vPersonDemographics PD
+	inner join Person.Person P
+	on P.BusinessEntityID = PD.BusinessEntityID
+	)
+select *,
+    CASE 
+	    WHEN Age is null THEN 'Unknown Age'
+		WHEN Age between 0 and 17 THEN 'Under 18'
+		WHEN Age between 18 and 24 THEN '18 to 24'
+		WHEN Age between 25 and 34 THEN '25 to 34'
+		WHEN Age between 35 and 49 THEN '35 to 49'
+		WHEN Age between 50 and 64 THEN '50 to 64'
+		ELSE 'Over 65'
+	END AS AgeRange
+from CustomerAge
+
+-----------------------------------------------
+now grouping the above query :
+
+WITH CustomerAge
+as (
+    select P.FirstName , P.LastName,
+	FLOOR(DATEDIFF(DAY, PD.BirthDate, GETDATE())/365.25) as Age
+	from Sales.vPersonDemographics PD
+	inner join Person.Person P
+	on P.BusinessEntityID = PD.BusinessEntityID
+	),
+CustomerAgeRanges AS(
+select *,
+    CASE 
+	    WHEN Age is null THEN 'Unknown Age'
+		WHEN Age between 0 and 17 THEN 'Under 18'
+		WHEN Age between 18 and 24 THEN '18 to 24'
+		WHEN Age between 25 and 34 THEN '25 to 34'
+		WHEN Age between 35 and 49 THEN '35 to 49'
+		WHEN Age between 50 and 64 THEN '50 to 64'
+		ELSE 'Over 65'
+	END AS AgeRange
+from CustomerAge
+)
+select AgeRange , COUNT(*) as Customer_Count
+from CustomerAgeRanges
+group by AgeRange
+order by 1
+
+-------------------------------------------------------------------------
+select 
+     PD.BusinessEntityID,
+	 P.FirstName,
+	 P.LastName,
+	 PD.Gender,
+	 CASE  
+	     WHEN PD.Gender = 'M' THEN 'Male'
+		 WHEN PD.Gender = 'F' THEN 'Female'
+		 ELSE 'Not specified'
+     END AS GenderValue
+from Sales.vPersonDemographics PD
+inner join Person.Person P
+on P.BusinessEntityID = PD.BusinessEntityID
+--------------------------------------------------------------------------
+--coaslesce and case will give same result here :
+
+select 
+      MiddleName,
+	  COALESCE(MiddleName , ' ') as CoalesceName,
+	  CASE
+	      WHEN MiddleName is null THEN ' ' 
+		  ELSE MiddleName
+	  END AS CaseName
+from Person.Person
+
+----------------------------------------------------------------------------
+

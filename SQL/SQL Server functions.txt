@@ -1,0 +1,62 @@
+--LEFT--
+
+select LEFT('Ayesha',4) --op: Ayes
+
+select LastName , LEFT(LastName, 5) as "Modified LN"
+from Person.Person
+
+--RIGHT---
+
+select Right('Ayesha',4) --op: esha
+
+select LastName , right(LastName, 5) as "Modified LN"
+from Person.Person
+
+--SUBSTRING--
+
+select 'Ayesha' , SUBSTRING('Ayesha' , 2,4) --op: yesh
+
+select LastName , substring(LastName, 3,5) as "Modified LN"
+from Person.Person
+
+select FirstName , substring(FirstName, 3,5) as "Modified FN"
+from Person.Person
+
+--CHARINDEX-- gives location of the character mentioned
+
+select CHARINDEX('r', 'Brewster') as Location --op: 2
+
+select CHARINDEX('r', 'Brewster',3) as Location --op: 8
+--here 3 indicates that it should start searching from third character and hence the first r at index 2 is passed by.
+
+select LastName , charindex('o',LastName) as "Index" 
+from Person.Person
+
+select LastName , charindex('o',LastName) as "Index" , Count(*) as C
+from Person.Person
+group by LastName
+
+--LTRIM RTRIM--
+select LTRIM('   This is a test') , RTRIM('This is a test   ') --will remove the space before the string through ltrim and same after with rtrim
+
+--UPPER LOWER CASE---
+select 'ayesha' , UPPER('ayesha') , LOWER('AYESHA') 
+
+--LENGTH--
+select LastName , LEN(LastName)
+from Person.Person
+
+--NESTING FUNCTIONS--
+
+SELECT  LEN(LTRIM('      T-SQL CLASS'))
+
+SELECT LEN(LTRIM('      This is a sample text'))
+
+SELECT Name,
+       SUBSTRING(Name, 3,7) AS STEP1,
+	   UPPER(SUBSTRING(Name, 3,7)) AS STEP2,
+	   REPLACE(UPPER(SUBSTRING(Name, 3,7)), 'E', 'x') AS STEP3
+FROM Production.Product
+
+SELECT Name,REPLACE(UPPER(SUBSTRING(Name, 3,7)), 'E', 'x') AS RESULT
+FROM Production.Product

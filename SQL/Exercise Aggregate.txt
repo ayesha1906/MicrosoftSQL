@@ -1,0 +1,23 @@
+select COUNT(*)
+from Person.Person
+
+select Count(MiddleName)
+from Person.Person
+where MiddleName is not null
+
+select AVG(StandardCost)
+from Production.Product
+where StandardCost > 0
+
+select AVG(Freight)
+from Sales.SalesOrderHeader
+where TerritoryID =4
+
+select MAX(ListPrice)
+from Production.Product
+
+select SUM(P.ListPrice * I.Quantity)
+from Production.Product P
+inner join Production.ProductInventory I
+on P.ProductID = I.ProductID
+where P.ListPrice >0

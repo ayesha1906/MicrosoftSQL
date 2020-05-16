@@ -1,0 +1,32 @@
+create table TestTable(
+   Column_A  varchar(100),
+   Column_B int,
+   Column_C DATETIME,
+   Column_D VARCHAR(10)
+   )
+
+ insert into Testtable(Column_A, Column_B, Column_c, Column_D)
+ values ('Ayesha' , 21, '7/1/1998', 'Pune'),
+        ('Tauheed', 11, '10/16/2007', 'Mumbai')
+
+select * from TestTable
+
+insert into TestTable values ('Salim', 50, '8/24/1969', 'Banglore')
+
+select * from TestTable
+
+insert into Testtable(Column_A, Column_B, Column_D)
+values ('Mehjabeen', 41, 'Madurai' )
+
+select * from TestTable
+
+insert into TestTable
+select FirstName, BusinessEntityID, GETDATE(), PhoneNumberType
+from HumanResources.vEmployee
+
+select * from TestTable
+
+update TestTable
+  SET Column_B = 82
+  where Column_A='Chris'
+

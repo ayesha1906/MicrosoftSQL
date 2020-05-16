@@ -1,0 +1,48 @@
+
+with HireByYear
+as (
+    select Year(Hiredate) as HireYear , BusinessEntityID
+	from HumanResources.Employee
+	),
+HireDetails as(
+   select HireYear , Count(*) as Number
+   from HireByYear
+   group by HireYear
+)
+select HireCurrentYear.HireYear,
+       HireCurrentYear.Number as CurrentYearEmployees,
+	   HirePrioryear.Number as PrioryearEmployees
+from HireDetails HireCurrentYear
+left outer join HireDetails HirePriorYear
+on HireCurrentYear.HireYear -1 = HirePriorYear.HireYear
+order by 1
+
+---------Same Solution diff way------------
+
+with HireByYear
+as (
+    select Year(Hiredate) as HireYear , Count(*) as Number
+	from HumanResources.Employee
+	   group by Year(Hiredate) 
+	)
+select HireCurrentYear.HireYear,
+       HireCurrentYear.Number as CurrentYearEmployees,
+	   HirePrioryear.Number as PrioryearEmployees
+from HireByYear HireCurrentYear
+left outer join HireByYear as HirePriorYear
+on HireCurrentYear.HireYear -1 = HirePriorYear.HireYear   ---or on HireCurrentYear.HireYear = HirePriorYear.HireYear +1
+order by 1
+
+----------------------------------------------------------------------------------------
+
+with ProductDetails
+as (
+    select YEAR(SellStartDate) as SellYear , ProductID
+	from Production.Product
+)
+select SellYear , COUNT(*) as NoOfProducts
+from ProductDetails
+group by SellYear
+
+
+

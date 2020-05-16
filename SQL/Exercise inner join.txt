@@ -1,0 +1,53 @@
+
+select
+       P.FirstName ,
+	   P.LastName ,
+	   Ps.PasswordHash
+from Person.Person P
+inner join Person.[Password] Ps
+on P.BusinessEntityID = Ps.BusinessEntityID
+
+select 
+      E.BusinessEntityID,
+	  E.NationalIDNumber, 
+	  E.JobTitle, 
+	  ED.DepartmentID , 
+	  ED.StartDate, 
+	  ED.EndDate
+from HumanResources.Employee E
+inner join HumanResources.EmployeeDepartmentHistory ED
+on E.BusinessEntityID = ED.BusinessEntityID
+
+select
+       P.FirstName ,
+	   P.LastName ,
+	   Ps.PasswordHash,
+	   E.EmailAddress
+from Person.Person P
+inner join Person.Password Ps
+on P.BusinessEntityID = Ps.BusinessEntityID
+inner join Person.EmailAddress E
+on E.BusinessEntityID = P.BusinessEntityID
+
+select B.Title,
+       B.ISBN,
+	   A.AuthorName,
+	   P.PublisherName
+from BookAuthor BA
+inner join Book B
+on B.BookID = BA.BookID
+inner join Author A
+on A.AuthorID = BA.AuthorID
+
+select B.Title,
+       B.ISBN,
+	   A.AuthorName,
+	   P.PublisherName
+from BookAuthor BA
+inner join Book B
+on B.BookID = BA.BookID
+inner join Author A
+on A.AuthorID = BA.AuthorID
+inner join Publisher P
+on P.PublisherID = B.PublisherID
+

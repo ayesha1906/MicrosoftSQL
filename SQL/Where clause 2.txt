@@ -1,0 +1,88 @@
+--without IN :--
+
+select *
+from HumanResources.vEmployee
+where FirstName = 'Chris' or FirstName='Steve' or 
+FirstName='Thomas ' or FirstName='Michael'
+
+---With IN---
+
+select *
+from HumanResources.vEmployee
+where FirstName IN ('Chris' , 'Steve' , 'Thomas' , 'Michael')
+
+--without between ---
+
+select *
+from Sales.vStoreWithDemographics
+where AnnualSales >= 1000000 and AnnualSales <= 2000000
+
+---with between---- 
+select *
+from Sales.vStoreWithDemographics
+where AnnualSales BETWEEN 1000000 And 2000000
+
+---Like-----
+
+select *
+from HumanResources.vEmployee
+where FirstName LIKE 'mi%'
+
+select *
+from HumanResources.vEmployee
+where FirstName LIKE 'mi_'
+
+select *
+from HumanResources.vEmployee
+where FirstName LIKE '_i%'
+
+select *
+from HumanResources.vEmployee
+where FirstName LIKE '%s'
+
+select *
+from HumanResources.vEmployee
+where FirstName Like '_on'
+
+select *
+from HumanResources.vEmployee
+where FirstName Like 'd%n'
+
+--middle letter should be a or o--
+select *
+from HumanResources.vEmployee
+where FirstName Like 'd[a,o]n'
+
+--middle letter between range a to f--
+select *
+from HumanResources.vEmployee
+where FirstName Like 'd[a-f]n'
+
+--middle letter between range a to f or range r to z--
+select *
+from HumanResources.vEmployee
+where FirstName Like 'd[a-f , r-z]n'
+
+--^ is negation sign--
+select *
+from HumanResources.vEmployee
+where FirstName Like 'd[^a-f]n'
+
+select *
+from HumanResources.vEmployee
+where FirstName Like 'd[^o]n' --op: Dan
+
+--IS NUll / IS NOT NULL---
+
+select *
+from Person.Person
+where MiddleNAME IS NULL
+
+select *
+from Person.Person
+where MiddleNAME IS N NULL
+
+select *
+from HumanResources.vEmployee
+where MiddleName IS not null and PhoneNumberType = 'Cell'
+

@@ -1,0 +1,23 @@
+select GETDATE() , CAST(GETDATE() AS DATE ) as Casted_date
+select GETDATE(), CONVERT(date, GETDATE()) as Type_casted_date
+
+select FirstName , CAST(FirstName as varchar) as casted
+from Person.Person
+
+select 
+      11/4,
+	  cast(11 as float)/cast(4 as float),
+	  11.0/4.0
+
+select FirstName , CAST(FirstName as VARCHAR(3)) as casted
+from Person.Person
+
+select Size , CAST(Size as int) as casted
+from Production.Product
+
+select Size , CAST(Size as int) as casted
+from Production.Product
+where ISNUMERIC(Size) = 1
+
+select Size 
+from Production.Product

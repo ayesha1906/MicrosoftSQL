@@ -1,0 +1,24 @@
+SELECT TOP 500  FirstName , MiddleName, LastName
+FROM Person.Person
+
+Select top 10 percent FirstName, MiddleName, LastName
+from Person.Person 
+
+select BusinessEntityID , PersonType , NameStyle, Title , FirstName, 
+ MiddleName, LastName, Suffix, EmailPromotion, AdditionalContactInfo,
+ Demographics, rowguid, ModifiedDate 
+from Person.Person
+
+--Instead of the above query we can do :
+select * 
+from Person.Person
+
+----Column Alias (AS)---
+
+--To display column name with spaces in it we can use [] or ""
+
+select top 100 FirstName AS [Customer First Name], LastName AS [Customer Last Name]
+from Person.Person
+
+select top 100 FirstName AS "Customer First Name", LastName AS "Customer Last Name"
+from Person.Person

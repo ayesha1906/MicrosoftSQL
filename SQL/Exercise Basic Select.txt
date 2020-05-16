@@ -1,0 +1,33 @@
+Select NationalIDNumber
+from HumanResources.Employee
+
+Select NationalIDNumber , JobTitle
+from HumanResources.Employee
+
+Select TOP 20 Percent
+ NationalIDNumber , JobTitle , BirthDate
+from HumanResources.Employee
+
+Select TOP 500  
+NationalIDNumber as SSN ,
+JobTitle as "Job Title" ,
+BirthDate
+from HumanResources.Employee
+
+SELECT *
+FROM Sales.SalesOrderHeader
+
+SELECT TOP 50 PERCENT *
+FROM Sales.Customer
+
+SELECT Name AS [Product's Name]
+FROM Production.vProductAndDescription
+
+SELECT TOP 400 *
+FROM HumanResources.Department
+
+SELECT *
+FROM Production.BillOfMaterials
+
+SELECT TOP 1500 *
+FROM Sales.vPersonDemographics

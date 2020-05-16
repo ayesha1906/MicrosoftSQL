@@ -1,0 +1,7 @@
+SELECT top 100
+ FirstName, coalesce(MiddleName, '') as MiddleName, LastName
+from Person.Person               --will replace Null with blank space
+
+select BillToAddressID, ShipToAddressID,
+       NULLIF(BillToAddressID, ShipToAddressID)
+from Sales.SalesOrderHeader  ---will give null if both values match

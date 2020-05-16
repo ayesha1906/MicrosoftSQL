@@ -1,0 +1,47 @@
+select *
+from (
+      select BusinessEntityID , FirstName, LastName
+	  from Person.Person
+	  ) as PersonName
+
+select year(OrderDate) as OrderYear, 
+       COUNT(*) as SalesCount
+from Sales.SalesOrderHeader
+where YEAR(OrderDate) ='2006'
+group by YEAR(OrderDate)
+
+--the above query can be easily done by derived tables as :
+select OrderYear, Count(*) as SalesCount
+from (
+      select Year(OrderDate) as OrderYear
+	  from Sales.SalesOrderHeader
+	  ) SalesDetails
+where OrderYear = 2006
+group by OrderYear
+
+select *
+from (
+     select BusinessEntityID,
+	 NationalIDNumber,
+	 Year(BirthDate) as BirthYear,
+	 YEAR(HireDate) as HireYear
+	 from HumanResources.Employee
+	 ) HR_Employee
+where BirthYear < 1960
+
+select  *
+from (
+     select BusinessEntityID,
+	 NationalIDNumber,
+	 BIrthYear,
+	 HireYear
+	 from (
+	       select BusinessEntityID,
+	       NationalIDNumber,
+		   Year(BirthDate) as BIrthYear,
+		   YEAR(HireDate ) as HireYear
+		   from HumanResources.Employee
+		   ) as InnerNested
+		where BIrthYear < 1960
+	 ) OuterNested
+where HireYear > 2003

@@ -1,0 +1,17 @@
+----inner Join ---
+
+select P.Name , P.ProductNumber , PS.Name as [ProductSubCategory Name]
+from Production.Product P
+INNER JOIN Production.ProductSubcategory PS
+on P.ProductSubcategoryID = PS.ProductSubcategoryID
+
+select  PS.Name as [ProductSubcategory Name] ,
+        PC.Name as [ProductCategory Name]
+from Production.ProductSubcategory PS
+INNER JOIN Production.ProductCategory PC
+ON PC.ProductCategoryID = PS.ProductCategoryID
+
+select P.FirstName , P.LastName , E.EmailAddress
+from Person.Person P
+inner join Person.EmailAddress E
+on P.BusinessEntityID = E.BusinessEntityID
